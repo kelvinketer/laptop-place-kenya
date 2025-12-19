@@ -124,13 +124,12 @@ STORAGES = {
 }
 
 # --- STATIC FILES (CSS/JS) ---
+# --- STATIC FILES (CSS/JavaScript) ---
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# --- COMPATIBILITY MODE (Required for your library version) ---
-# These two lines are technically "old", but your Cloudinary library NEEDS them.
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# --- MEDIA FILES (Images) ---
+MEDIA_URL = '/media/'  # Placeholder
 
 # --- CLOUDINARY CONFIGURATION ---
 CLOUDINARY_STORAGE = {
@@ -139,7 +138,13 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': 'tOdPXLziEQMeOyDR3yJXdv0Wp-s',
 }
 
-# --- DJANGO 6.0 STANDARD (Keep this too for safety) ---
+# --- THE "HYBRID" FIX ---
+
+# 1. LEGACY SETTINGS (Required because the Cloudinary library looks for them)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+# 2. MODERN SETTINGS (Required for Django 6.0)
 STORAGES = {
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
