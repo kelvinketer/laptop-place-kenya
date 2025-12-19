@@ -128,3 +128,6 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
+
+# Keep this for compatibility with the Cloudinary library
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
