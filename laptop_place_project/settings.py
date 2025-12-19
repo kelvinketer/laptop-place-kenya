@@ -1,3 +1,6 @@
+import os
+from pathlib import Path  # (This is likely already there)
+
 """
 Django settings for laptop_place_project project.
 
