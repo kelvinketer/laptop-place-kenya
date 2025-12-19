@@ -28,7 +28,12 @@ SECRET_KEY = 'django-insecure-m)!4#a$e-lg+(1ce3y2c*l9*uw1n(-egxh_%j2os8ja1_k+6_a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    'laptop-place-kenya.onrender.com', 
+    'laptopplacekenya.com', 
+    'www.laptopplacekenya.com', 
+    'localhost', 
+    '127.0.0.1']
 
 
 # Application definition
