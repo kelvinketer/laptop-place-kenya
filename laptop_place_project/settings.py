@@ -132,3 +132,21 @@ STORAGES = {
         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
 }
+
+# ==============================================
+#  SECURITY & SSL CONFIGURATION
+# ==============================================
+
+# 1. Force all traffic to use HTTPS (The Green Lock)
+SECURE_SSL_REDIRECT = True
+
+# 2. Trust the secure connection from Render
+# Without this, Django gets confused because Render handles the SSL before the request hits Django.
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# 3. Secure Cookies (Protect user sessions)
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# 4. Allow the site to be displayed in frames (Optional, but good for some integrations)
+X_FRAME_OPTIONS = 'SAMEORIGIN'
