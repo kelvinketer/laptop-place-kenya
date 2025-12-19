@@ -101,12 +101,6 @@ USE_TZ = True
 
 # --- STATIC & MEDIA CONFIGURATION (Django 6.0 Compatible) ---
 
-# URL prefix for static files.
-STATIC_URL = 'static/'
-
-# Where to collect static files during deployment
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
 # URL prefix for media files (images users upload)
 MEDIA_URL = '/media/' 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -129,5 +123,28 @@ STORAGES = {
     },
 }
 
-# Keep this for compatibility with the Cloudinary library
+# --- STATIC FILES (CSS/JS) ---
+STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# --- COMPATIBILITY MODE (Required for your library version) ---
+# These two lines are technically "old", but your Cloudinary library NEEDS them.
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+# --- CLOUDINARY CONFIGURATION ---
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'drkkg7wf2',
+    'API_KEY': '637631316581369',
+    'API_SECRET': 'tOdPXLziEQMeOyDR3yJXdv0Wp-s',
+}
+
+# --- DJANGO 6.0 STANDARD (Keep this too for safety) ---
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
