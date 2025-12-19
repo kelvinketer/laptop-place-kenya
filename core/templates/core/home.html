@@ -1,118 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laptop Place Kenya</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brandGreen: '#064e3b', // Deep Green
-                        brandYellow: '#facc15', // Golden Yellow
-                    }
-                }
-            }
-        }
-    </script>
-</head>
-<body class="bg-gray-100 font-sans">
+{% extends 'core/base.html' %}
 
-    <nav class="bg-brandGreen text-white p-4 shadow-lg">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-brandYellow">Laptop Place Kenya</h1>
-            <div class="space-x-4 hidden md:flex">
-                <a href="#" class="hover:text-brandYellow">Home</a>
-                <a href="#" class="hover:text-brandYellow">Laptops</a>
-                <a href="#" class="hover:text-brandYellow">Contact</a>
-            </div>
-            <button class="bg-brandYellow text-brandGreen px-4 py-2 rounded-full font-bold">
-                Call: 0723 027 668
-            </button>
-        </div>
-    </nav>
+{% block content %}
 
-    <div class="bg-gradient-to-r from-green-900 to-brandGreen text-white py-16">
-        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
-            <div class="md:w-1/2 mb-8 md:mb-0">
-                <span class="bg-brandYellow text-green-900 px-3 py-1 rounded-full text-sm font-bold uppercase tracking-wider">Green Friday Sale</span>
-                <h2 class="text-4xl md:text-5xl font-bold mt-4 mb-4">Welcome to Kenya's Largest Laptop Store!</h2>
-                <p class="text-xl mb-6 text-gray-200">Get Free Gifts + Warranty with every purchase.</p>
-                <a href="#deals" class="bg-brandYellow text-brandGreen px-8 py-3 rounded-full font-bold hover:bg-yellow-300 transition">Shop Deals</a>
-            </div>
-            <div class="md:w-1/2 flex justify-center">
-                <div class="bg-white/10 p-8 rounded-full backdrop-blur-sm">
-                   <img src="https://via.placeholder.com/400x300?text=Laptop+Bundle" alt="Laptop" class="rounded-lg shadow-2xl">
-                </div>
-            </div>
-        </div>
+<div class="bg-dark text-white py-5 mb-5 text-center" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://res.cloudinary.com/drkkg7wf2/image/upload/v1/media/products/Screenshot_20230312_214326_Facebook_1_ysvveb'); background-size: cover; background-position: center;">
+    <div class="container py-5">
+        <h1 class="display-4 fw-bold">Laptop Place Kenya</h1>
+        <p class="lead mb-4">Premium Laptops for Work, School, and Creatives</p>
+        <a href="#products" class="btn btn-warning btn-lg px-4 fw-bold">Shop Now</a>
     </div>
+</div>
 
-    <div class="container mx-auto px-4 py-12">
-        <h3 class="text-2xl font-bold text-gray-800 mb-6">Shop by Category</h3>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {% for cat in categories %}
-            <div class="bg-white p-6 rounded-xl shadow-md text-center hover:shadow-xl transition cursor-pointer border border-transparent hover:border-brandGreen">
-                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 text-brandGreen">
-                    <span class="text-2xl">💻</span> 
-                </div>
-                <h4 class="font-bold text-gray-700">{{ cat.name }}</h4>
-            </div>
-            {% empty %}
-            <p>No categories yet.</p>
-            {% endfor %}
-        </div>
-    </div>
-
-    <div id="deals" class="container mx-auto px-4 py-8 mb-16">
-        <h3 class="text-2xl font-bold text-gray-800 mb-6">Trending Deals</h3>
-        
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-            {% for product in products %}
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 transition duration-300">
-                <div class="h-48 bg-gray-200 flex items-center justify-center relative">
+<div class="container" id="products">
+    <h2 class="text-center mb-4 fw-bold">Latest Arrivals</h2>
+    
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for product in products %}
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0">
+                <div style="height: 250px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #f8f9fa;">
                     {% if product.image %}
-                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="h-full w-full object-cover">
+                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="max-height: 100%; width: auto; object-fit: contain;">
                     {% else %}
-                        <span class="text-gray-400">No Image</span>
-                    {% endif %}
-                    
-                    {% if product.green_friday_deal %}
-                    <span class="absolute top-2 right-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">
-                        HOT DEAL
-                    </span>
+                        <div class="text-muted">No Image</div>
                     {% endif %}
                 </div>
 
-                <div class="p-4">
-                    <span class="text-xs text-brandGreen font-bold uppercase">{{ product.category.name }}</span>
-                    <h4 class="font-bold text-lg text-gray-800 truncate">{{ product.name }}</h4>
-                    
-                    <ul class="text-xs text-gray-500 mt-2 mb-4 space-y-1">
-                        <li>• {{ product.processor }}</li>
-                        <li>• {{ product.ram }} / {{ product.storage }}</li>
-                    </ul>
-
-                    <div class="flex justify-between items-center mt-4">
-                        <div>
-                            <span class="block text-xl font-bold text-brandGreen">Ksh {{ product.price }}</span>
-                        </div>
-                        <button 
-
-                        a href="{% url 'product_detail' product.id %}" class="bg-brandGreen text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-green-800 inline-block">
-                            Buy Now
-</a>
-                        </button>
+                <div class="card-body">
+                    <h5 class="card-title text-dark">{{ product.name }}</h5>
+                    <p class="card-text text-muted small">{{ product.description|truncatewords:15 }}</p>
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <span class="h5 mb-0 text-primary fw-bold">KES {{ product.price }}</span>
                     </div>
                 </div>
-            </div>
-            {% empty %}
-            <p class="text-gray-500">No laptops added yet.</p>
-            {% endfor %}
-        </div>
-    </div>
 
-</body>
-</html>
+                <div class="card-footer bg-white border-top-0 pb-3">
+                    <a href="#" class="btn btn-dark w-100">
+                        <i class="fas fa-shopping-cart me-2"></i> View Details
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <p class="text-muted">No laptops available at the moment. Check back soon!</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="mb-5"></div>
+
+{% endblock %}
