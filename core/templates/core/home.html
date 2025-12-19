@@ -2,79 +2,84 @@
 
 {% block content %}
 
-<div class="bg-dark text-white text-center" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1517336714731-489689fd1ca4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80'); background-size: cover; background-position: center; padding: 100px 0;">
-    <div class="container">
-        <h1 class="display-3 fw-bold mb-3">Upgrade Your Game</h1>
-        <p class="lead mb-4 text-light opacity-75">High-performance laptops for professionals, students, and gamers in Nairobi.</p>
-        <div class="d-flex justify-content-center gap-3">
-            <a href="#products" class="btn btn-warning btn-lg px-5 fw-bold rounded-pill">Shop Laptops</a>
+<div class="position-relative overflow-hidden text-center text-white" style="background: linear-gradient(135deg, #004d2a 0%, #006838 100%);">
+    <div class="container py-5">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-lg-8 py-5">
+                <h4 class="text-warning fw-bold text-uppercase ls-2">Green Friday Super Sale</h4>
+                <h1 class="display-4 fw-bolder mb-3">Biggest Bundles of the Year!</h1>
+                <p class="lead mb-4 text-white-50">Get up to 30% OFF on Business & Student Laptops</p>
+                <a href="#products" class="btn btn-warning btn-lg fw-bold px-5 rounded-pill shadow">Shop Deals</a>
+            </div>
+        </div>
+    </div>
+    <div style="height: 40px; background: var(--brand-gold); clip-path: ellipse(60% 100% at 50% 100%); margin-top: -20px;"></div>
+</div>
+
+<div class="container my-5">
+    <div class="row text-center g-4 justify-content-center">
+        <div class="col-6 col-md-2">
+            <div class="rounded-circle bg-white shadow-sm p-3 mx-auto mb-2 d-flex align-items-center justify-content-center border border-success" style="width: 80px; height: 80px;">
+                <i class="fas fa-graduation-cap fa-2x text-success"></i>
+            </div>
+            <h6 class="fw-bold">Student</h6>
+        </div>
+        <div class="col-6 col-md-2">
+            <div class="rounded-circle bg-success shadow-sm p-3 mx-auto mb-2 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                <i class="fas fa-briefcase fa-2x text-white"></i>
+            </div>
+            <h6 class="fw-bold">Business</h6>
+        </div>
+        <div class="col-6 col-md-2">
+            <div class="rounded-circle bg-white shadow-sm p-3 mx-auto mb-2 d-flex align-items-center justify-content-center border border-success" style="width: 80px; height: 80px;">
+                <i class="fas fa-gamepad fa-2x text-success"></i>
+            </div>
+            <h6 class="fw-bold">Gaming</h6>
+        </div>
+        <div class="col-6 col-md-2">
+            <div class="rounded-circle bg-white shadow-sm p-3 mx-auto mb-2 d-flex align-items-center justify-content-center border border-success" style="width: 80px; height: 80px;">
+                <i class="fas fa-mouse fa-2x text-success"></i>
+            </div>
+            <h6 class="fw-bold">Others</h6>
         </div>
     </div>
 </div>
 
-<div class="container py-5">
-    <div class="row text-center g-4">
-        <div class="col-md-4">
-            <div class="p-3">
-                <i class="fas fa-truck fa-3x text-warning mb-3"></i>
-                <h5>Fast Delivery</h5>
-                <p class="text-muted">Countrywide delivery across Kenya.</p>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="p-3">
-                <i class="fas fa-check-circle fa-3x text-warning mb-3"></i>
-                <h5>Quality Guaranteed</h5>
-                <p class="text-muted">All laptops are tested and verified.</p>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="p-3">
-                <i class="fas fa-headset fa-3x text-warning mb-3"></i>
-                <h5>Expert Support</h5>
-                <p class="text-muted">We help you choose the right specs.</p>
-            </div>
-        </div>
+<div class="container mb-5" id="products">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold">Trending Deals</h3>
+        <a href="#" class="text-success fw-bold text-decoration-none">View All <i class="fas fa-arrow-right"></i></a>
     </div>
-</div>
 
-<div class="bg-white py-5" id="products">
-    <div class="container">
-        <h2 class="text-center fw-bold mb-5">Latest Arrivals</h2>
-        
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            {% for product in products %}
-            <div class="col">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div style="height: 220px; background: #f1f1f1; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-                        {% if product.image %}
-                            <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}" style="max-height: 100%; width: auto;">
-                        {% else %}
-                            <span class="text-muted"><i class="fas fa-image fa-2x"></i><br>No Image</span>
-                        {% endif %}
-                    </div>
+    <div class="row row-cols-1 row-cols-md-4 g-3">
+        {% for product in products %}
+        <div class="col">
+            <div class="card h-100 border-0 shadow-sm" style="transition: transform 0.2s;">
+                <div class="p-3 bg-white text-center" style="height: 200px; display: flex; align-items: center; justify-content: center;">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" class="img-fluid" style="max-height: 160px;">
+                    {% else %}
+                        <div class="text-muted"><i class="fas fa-laptop fa-3x"></i></div>
+                    {% endif %}
+                </div>
+
+                <div class="card-body bg-light">
+                    <h6 class="card-title fw-bold text-truncate">{{ product.name }}</h6>
+                    <p class="small text-muted mb-2" style="font-size: 0.8rem;">Core i5 • 8GB RAM • 256GB SSD</p>
                     
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold">{{ product.name }}</h5>
-                        <p class="card-text text-muted small">{{ product.description|truncatewords:20 }}</p>
-                        <h4 class="text-primary fw-bold mt-3">KES {{ product.price }}</h4>
-                    </div>
-                    
-                    <div class="card-footer bg-white border-top-0 pb-4">
-                        <a href="#" class="btn btn-dark w-100 rounded-pill">
-                            <i class="fab fa-whatsapp me-2"></i>Order on WhatsApp
-                        </a>
+                    <div class="d-grid">
+                        <button class="btn btn-success fw-bold btn-sm py-2">
+                            Ksh {{ product.price }}
+                        </button>
                     </div>
                 </div>
             </div>
-            {% empty %}
-            <div class="col-12 text-center">
-                <div class="alert alert-info">
-                    No laptops added yet! Go to the Admin panel to add your first product.
-                </div>
-            </div>
-            {% endfor %}
         </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <p class="text-muted">No products found. Add some in the Admin panel!</p>
+        </div>
+        {% endfor %}
     </div>
 </div>
 
