@@ -1,3 +1,5 @@
+from django.contrib.auth.models import User
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator # Import the Paginator tool
 from .models import Product
@@ -36,3 +38,11 @@ def product_detail(request, pk):
 
 def contact(request):
     return render(request, 'core/contact.html')
+
+# TEMPORARY FUNCTION TO CREATE ADMIN
+def create_superuser(request):
+    if not User.objects.filter(username='admin').exists():
+        User.objects.create_superuser('admin', 'admin@example.com', 'admin123')
+        return HttpResponse("Success! Superuser 'admin' created. Password is 'admin123'. Go to /admin now.")
+    else:
+        return HttpResponse("Superuser 'admin' already exists.")
