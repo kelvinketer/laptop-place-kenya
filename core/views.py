@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.core.paginator import Paginator # Import the Paginator tool
 from .models import Product
 
 def home(request):
@@ -6,13 +7,18 @@ def home(request):
     query = request.GET.get('q')
     category_filter = request.GET.get('category')
 
-    # 2. Filter logic
+    # 2. Filter products based on search or category
     if query:
-        products = Product.objects.filter(name__icontains=query)
+        products_list = Product.objects.filter(name__icontains=query)
     elif category_filter:
-        products = Product.objects.filter(category=category_filter)
+        products_list = Product.objects.filter(category=category_filter)
     else:
-        products = Product.objects.all()
+        products_list = Product.objects.all().order_by('-id') # Show newest first
+
+    # 3. SET UP PAGINATION (Show 8 laptops per page)
+    paginator = Paginator(products_list, 8) 
+    page_number = request.GET.get('page')
+    products = paginator.get_page(page_number)
 
     return render(request, 'core/home.html', {
         'products': products,
@@ -20,12 +26,9 @@ def home(request):
     })
 
 def product_detail(request, pk):
-    # 1. Get the current product
     product = get_object_or_404(Product, pk=pk)
-    
-    # 2. Get related products (Same category, but not this exact laptop)
+    # Get 3 related products
     related_products = Product.objects.filter(category=product.category).exclude(pk=pk)[:3]
-
     return render(request, 'core/product_detail.html', {
         'product': product,
         'related_products': related_products
