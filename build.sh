@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Exit on error
+# exit on error
 set -o errexit
 
-# Install libraries
+# 1. Install dependencies
 pip install -r requirements.txt
 
-# Collect static files (CSS/Images)
-python manage.py collectstatic --noinput
+# 2. Collect static files (The step that fixes the broken Admin styles)
+python manage.py collectstatic --no-input
 
-# Migrate database (This fixes the missing tables!)
+# 3. Migrate database (Ensures tables exist)
 python manage.py migrate
