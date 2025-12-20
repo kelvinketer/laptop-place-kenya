@@ -18,7 +18,7 @@ INSTALLED_APPS = [
     # 3rd Party Apps (Must be at the top)
     'cloudinary_storage',
     'cloudinary',
-    'whitenoise.runserver_nostatic',  # Helps styling in development
+    'whitenoise.runserver_nostatic',
 
     # Default Django Apps
     'django.contrib.admin',
@@ -34,7 +34,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # <--- CRITICAL: Must be here!
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # CRITICAL: Must be here
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -63,7 +63,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'laptop_place_project.wsgi.application'
 
 # Database
-# Connects to PostgreSQL on Render, or SQLite locally
+# Connects to PostgreSQL on Render automatically
 DATABASES = {
     'default': dj_database_url.config(
         default='sqlite:///' + str(BASE_DIR / 'db.sqlite3'),
@@ -91,16 +91,16 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Where Django looks for your custom logo
+# Pointing to your logo folder
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'core/static'),
 ]
 
-# This engine compresses files so they load on Render
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# Safe Mode for WhiteNoise (Fixes the crash)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # ==============================================
-#  MEDIA FILES (Images - Stored on Cloudinary)
+#  MEDIA FILES (Images - PERMANENT on Cloudinary)
 # ==============================================
 MEDIA_URL = '/media/'
 
