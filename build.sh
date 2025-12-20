@@ -2,11 +2,14 @@
 # Exit on error
 set -o errexit
 
-# 1. Install dependencies
+echo "1. Installing requirements..."
 pip install -r requirements.txt
 
-# 2. Collect static files (Fixes the broken admin page)
+echo "2. Collecting static files..."
 python manage.py collectstatic --no-input --clear
 
-# 3. Migrate database
+echo "3. Migrating database..."
 python manage.py migrate
+
+echo "4. Checking for Superuser..."
+python create_superuser.py
