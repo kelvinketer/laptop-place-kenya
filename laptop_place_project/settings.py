@@ -113,8 +113,8 @@ CLOUDINARY_STORAGE = {
 # 1. UPDATED: Use WhiteNoise with Compression for Static Files
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# 2. Store Media files (Images) on Cloudinary
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# Use the "Safe" WhiteNoise storage (No Manifest)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # ==============================================
 #  SECURITY & SSL CONFIGURATION
