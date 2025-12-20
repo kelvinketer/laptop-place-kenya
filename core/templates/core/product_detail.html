@@ -1,83 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ product.name }} - Laptop Place</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: { colors: { brandGreen: '#064e3b', brandYellow: '#facc15', } }
-            }
-        }
-    </script>
-</head>
-<body class="bg-gray-50 font-sans">
+{% extends 'core/base.html' %}
 
-    <nav class="bg-brandGreen text-white p-4">
-        <div class="container mx-auto">
-            <a href="{% url 'home' %}" class="font-bold text-brandYellow hover:underline">← Back to Home</a>
-        </div>
+{% block content %}
+
+<div class="container py-5">
+    
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-success text-decoration-none">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
+        </ol>
     </nav>
 
-    <div class="container mx-auto px-4 py-12">
-        <div class="bg-white rounded-xl shadow-xl overflow-hidden flex flex-col md:flex-row">
-            
-            <div class="md:w-1/2 bg-gray-100 p-8 flex items-center justify-center">
+    <div class="card shadow-sm border-0">
+        <div class="row g-0">
+            <div class="col-md-6 bg-light d-flex align-items-center justify-content-center p-4">
                 {% if product.image %}
-                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="max-w-full h-auto rounded-lg shadow-lg">
+                    <img src="{{ product.image.url }}" class="img-fluid rounded shadow-sm" style="max-height: 400px;" alt="{{ product.name }}">
                 {% else %}
-                    <div class="text-gray-400">No Image Available</div>
+                    <div class="text-muted p-5 text-center">
+                        <i class="fas fa-laptop fa-5x mb-3"></i>
+                        <br>No Image Available
+                    </div>
                 {% endif %}
             </div>
 
-            <div class="md:w-1/2 p-8 md:p-12">
-                <span class="text-brandGreen font-bold uppercase tracking-wide text-sm">{{ product.category.name }}</span>
-                <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mt-2 mb-4">{{ product.name }}</h1>
-                
-                <div class="text-3xl font-bold text-brandGreen mb-6">
-                    Ksh {{ product.price }}
-                    {% if product.old_price %}
-                    <span class="text-lg text-gray-400 line-through ml-2">Ksh {{ product.old_price }}</span>
-                    {% endif %}
-                </div>
+            <div class="col-md-6">
+                <div class="card-body p-4 p-lg-5">
+                    <h5 class="text-muted text-uppercase small ls-1">Laptop Place Kenya</h5>
+                    <h1 class="fw-bold mb-3">{{ product.name }}</h1>
+                    
+                    <h2 class="text-success fw-bold mb-4">KES {{ product.price }}</h2>
 
-                {% if product.green_friday_deal %}
-                <div class="bg-yellow-50 border-l-4 border-brandYellow p-4 mb-8 rounded-r">
-                    <h3 class="font-bold text-yellow-800 flex items-center">
-                        <span class="text-xl mr-2">🎁</span> Green Friday Bonus
-                    </h3>
-                    <p class="text-sm text-yellow-900 mt-1">Includes FREE Laptop Bag, Mouse & 6 Months Warranty!</p>
-                </div>
-                {% endif %}
+                    <div class="mb-4">
+                        <h5 class="fw-bold">Description & Specs:</h5>
+                        <p class="text-muted">{{ product.description|linebreaks }}</p>
+                    </div>
 
-                <div class="grid grid-cols-2 gap-4 mb-8 text-sm text-gray-600">
-                    <div class="border p-3 rounded">
-                        <span class="block font-bold text-gray-800">Processor</span> {{ product.processor }}
-                    </div>
-                    <div class="border p-3 rounded">
-                        <span class="block font-bold text-gray-800">RAM</span> {{ product.ram }}
-                    </div>
-                    <div class="border p-3 rounded">
-                        <span class="block font-bold text-gray-800">Storage</span> {{ product.storage }}
-                    </div>
-                    <div class="border p-3 rounded">
-                        <span class="block font-bold text-gray-800">Display</span> {{ product.display }}
-                    </div>
-                </div>
+                    <hr class="my-4">
 
-                <div class="flex flex-col space-y-3">
-                    <button class="bg-brandGreen text-white py-4 rounded-xl font-bold text-lg hover:bg-green-800 transition shadow-lg">
-                        Add to Cart
-                    </button>
-                    <a href="https://wa.me/254723027668?text=Hi%20Laptop%20Place,%20I%20am%20interested%20in%20{{ product.name }}%20at%20Ksh%20{{ product.price }}" target="_blank" class="border-2 border-green-600 text-green-700 py-3 rounded-xl font-bold text-center hover:bg-green-50 transition">
-                        Order via WhatsApp
-                    </a>
+                    <div class="d-grid gap-2">
+                        <a href="https://wa.me/254723027668?text=Hi%20Laptop%20Place%20Kenya,%20I%20am%20interested%20in%20{{ product.name|urlencode }}%20listed%20for%20KES%20{{ product.price }}." 
+                           class="btn btn-success btn-lg fw-bold" target="_blank">
+                            <i class="fab fa-whatsapp me-2"></i> Buy on WhatsApp
+                        </a>
+                        <a href="{% url 'home' %}" class="btn btn-outline-dark">
+                            <i class="fas fa-arrow-left me-2"></i> Continue Shopping
+                        </a>
+                    </div>
+
+                    <div class="row mt-4 text-center text-muted small">
+                        <div class="col-4">
+                            <i class="fas fa-truck fa-lg mb-2"></i><br>Fast Delivery
+                        </div>
+                        <div class="col-4">
+                            <i class="fas fa-shield-alt fa-lg mb-2"></i><br>Warranty
+                        </div>
+                        <div class="col-4">
+                            <i class="fas fa-check-circle fa-lg mb-2"></i><br>Verified
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-</body>
-</html>
+{% endblock %}
