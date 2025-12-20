@@ -1,7 +1,5 @@
-from django.contrib.auth.models import User
-from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
-from django.core.paginator import Paginator # Import the Paginator tool
+from django.core.paginator import Paginator
 from .models import Product
 
 def home(request):
@@ -9,15 +7,15 @@ def home(request):
     query = request.GET.get('q')
     category_filter = request.GET.get('category')
 
-    # 2. Filter products based on search or category
+    # 2. Filter products
     if query:
         products_list = Product.objects.filter(name__icontains=query)
     elif category_filter:
         products_list = Product.objects.filter(category=category_filter)
     else:
-        products_list = Product.objects.all().order_by('-id') # Show newest first
+        products_list = Product.objects.all().order_by('-id')
 
-    # 3. SET UP PAGINATION (Show 8 laptops per page)
+    # 3. Pagination (8 per page)
     paginator = Paginator(products_list, 8) 
     page_number = request.GET.get('page')
     products = paginator.get_page(page_number)
@@ -38,11 +36,3 @@ def product_detail(request, pk):
 
 def contact(request):
     return render(request, 'core/contact.html')
-
-# TEMPORARY FUNCTION TO CREATE ADMIN
-def create_superuser(request):
-    if not User.objects.filter(username='admin').exists():
-        User.objects.create_superuser('admin', 'admin@example.com', 'admin123')
-        return HttpResponse("Success! Superuser 'admin' created. Password is 'admin123'. Go to /admin now.")
-    else:
-        return HttpResponse("Superuser 'admin' already exists.")

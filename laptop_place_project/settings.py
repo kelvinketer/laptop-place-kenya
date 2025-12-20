@@ -15,7 +15,7 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 INSTALLED_APPS = [
-    # 3rd Party Apps (Must be at the top)
+    # 3rd Party Apps (Order matters!)
     'cloudinary_storage',
     'cloudinary',
     'whitenoise.runserver_nostatic',
@@ -62,8 +62,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'laptop_place_project.wsgi.application'
 
-# Database
-# Connects to PostgreSQL on Render automatically
+# Database (PostgreSQL on Render)
 DATABASES = {
     'default': dj_database_url.config(
         default='sqlite:///' + str(BASE_DIR / 'db.sqlite3'),
@@ -86,21 +85,21 @@ USE_I18N = True
 USE_TZ = True
 
 # ==============================================
-#  STATIC FILES (CSS/JS - The Admin Styling)
+#  STATIC FILES (CSS - Admin Styling)
 # ==============================================
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Pointing to your logo folder
+# Point to your custom logo folder
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'core/static'),
 ]
 
-# Safe Mode for WhiteNoise (Fixes the crash)
+# Safe Mode for WhiteNoise
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # ==============================================
-#  MEDIA FILES (Images - PERMANENT on Cloudinary)
+#  MEDIA FILES (Images - Cloudinary)
 # ==============================================
 MEDIA_URL = '/media/'
 
