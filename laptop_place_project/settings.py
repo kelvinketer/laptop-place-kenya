@@ -102,7 +102,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Media files (User uploaded images)
 MEDIA_URL = '/media/'
 
-# CLOUDINARY CONFIGURATION (Your Keys)
+# CLOUDINARY CONFIGURATION
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'drkkg7wf2',
     'API_KEY': '637631316581369',
@@ -110,11 +110,11 @@ CLOUDINARY_STORAGE = {
 }
 
 # Storage Engines
-# 1. Store Static files (CSS/JS) locally/whitenoise
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+# 1. UPDATED: Use WhiteNoise with Compression for Static Files
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 # 2. Store Media files (Images) on Cloudinary
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
 
 # ==============================================
 #  SECURITY & SSL CONFIGURATION
